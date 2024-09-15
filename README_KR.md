@@ -111,7 +111,7 @@
   ```
 
   watchOS 으로부터 받은 데이터 저장
-  ```
+  ```swift
   DispatchQueue.main.async {
     switch statistics.quantityType {
     case HKQuantityType.quantityType(forIdentifier: .heartRate):
@@ -126,7 +126,7 @@
         self.distance = statistics.sumQuantity()?.doubleValue(for: meterUnit) ?? 0
     default:
         return
-    }
+  }
   ```
 
   
