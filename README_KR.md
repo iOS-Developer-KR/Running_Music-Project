@@ -110,6 +110,25 @@
   }
   ```
 
+  watchOS 으로부터 받은 데이터 저장
+  ```
+  DispatchQueue.main.async {
+    switch statistics.quantityType {
+    case HKQuantityType.quantityType(forIdentifier: .heartRate):
+        let heartRateUnit = HKUnit.count().unitDivided(by: HKUnit.minute())
+        self.heartRate = statistics.mostRecentQuantity()?.doubleValue(for: heartRateUnit) ?? 0
+        self.averageHeartRate = statistics.averageQuantity()?.doubleValue(for: heartRateUnit) ?? 0
+    case HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned):
+        let energyUnit = HKUnit.kilocalorie()
+        self.activeEnergy = statistics.sumQuantity()?.doubleValue(for: energyUnit) ?? 0
+    case HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning), HKQuantityType.quantityType(forIdentifier: .distanceCycling):
+        let meterUnit = HKUnit.meter()
+        self.distance = statistics.sumQuantity()?.doubleValue(for: meterUnit) ?? 0
+    default:
+        return
+    }
+  ```
+
   
 
 
